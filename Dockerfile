@@ -21,6 +21,10 @@ RUN bundle install
 COPY . /rails-app
 
 #Script que vai ser executado ao iniciar
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
 EXPOSE 3000
 
 ## Executa o processo ao iniciar a imagem
