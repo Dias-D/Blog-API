@@ -1,44 +1,44 @@
 class V1::PostsController < ApplicationController
 
-    # GET /v1/exams
+    # GET /v1/posts
     def index
-        exams = Exam.all
-        render json: exams
+        posts = Post.all
+        render json: posts
     end
 
-    # POST /v1/exams
+    # POST /v1/posts
     def create
-        exam_params = params.require(:exam).permit(:category, :area, :description, :patient_id)
-        exam = Exam.new(exam_params)
+        post_params = params.require(:post).permit(:title, :body)
+        post = Post.new(post_params)
 
-        if exam.save
-        render json: exam, status: :created
+        if post.save
+        render json: post, status: :created
         else
-        render json: exam.errors, status: :unprocessable_entity
+        render json: post.errors, status: :unprocessable_entity
         end
     end
 
-    # GET /v1/exams/:id
+    # GET /v1/posts/:id
     def show
-        exam = Exam.find(params[:id])
-        render json: exam
+        post = Post.find(params[:id])
+        render json: post
     end
 
-    # PATCH/PUT /v1/exams/:id
+    # PATCH/PUT /v1/posts/:id
     def update
-        exam = Exam.find(params[:id])
-        exam_params= params.require(:exam).permit(:category, :area, :description, :patient_id)
+        post = Post.find(params[:id])
+        post_params= params.require(:post).permit(:title, :body)
 
-        if exam.update(exam_params)
-        render json: exam
+        if post.update(post_params)
+        render json: post
         else
-        render json: exam.errors, status: :unprocessable_entity
+        render json: post.errors, status: :unprocessable_entity
         end
     end
 
-    # DELETE /v1/exams/:id
+    # DELETE /v1/posts/:id
     def destroy
-        exam = Exam.find(params[:id])
-        exam.destroy
+        post = Post.find(params[:id])
+        post.destroy
     end
 end
