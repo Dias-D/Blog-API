@@ -18,7 +18,11 @@ RSpec.describe "Posts", type: :request do
         end
 
         it "CREATE 201 Created" do
+            user = create(:user)
+            sign_in user
+            
             headers = {"ACCPET" => "application/json"}
+
             post_params = attributes_for(:post)
       
             post "/v1/posts.json", params: {post: post_params}, headers: headers

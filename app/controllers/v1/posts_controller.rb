@@ -1,4 +1,5 @@
 class V1::PostsController < ApplicationController
+    before_action :authenticate_user!, except: [:index]
 
     # GET /v1/posts
     def index
