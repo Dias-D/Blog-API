@@ -1,5 +1,6 @@
 class V1::PostsController < ApplicationController
-    before_action :authenticate_user!, except: [:index]
+    skip_before_action :verify_authenticity_token, raise: false  
+    before_action :authenticate_devise_api_token!, expect: [:index]
 
     # GET /v1/posts
     def index

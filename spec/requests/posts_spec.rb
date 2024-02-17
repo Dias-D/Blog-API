@@ -2,11 +2,11 @@ require 'rails_helper'
 require "rspec/json_expectations"
 
 RSpec.describe "Posts", type: :request do
-    describe "Testing V1 Request/Controllers" do
+    describe "Testing V1 Request/Controllers without Authentication" do
         before do 
             @post = create(:post)
         end
-
+        
         it "INDEX 200 OK" do
             get "/v1/posts.json"
             expect(response).to have_http_status(200)
@@ -16,10 +16,16 @@ RSpec.describe "Posts", type: :request do
                 "body" => (be_a_kind_of String)
             ])
         end
+    end
+    
+    describe "Testing V1 Request/Controllers with Authentication" do
+        before do 
+            @post = create(:post)
+            user = create(:user)            
+            sign_in user
+        end
 
         it "CREATE 201 Created" do
-            user = create(:user)
-            sign_in user
             
             headers = {"ACCPET" => "application/json"}
 
