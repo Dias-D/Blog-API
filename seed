@@ -1,0 +1,19 @@
+== 20240213192903 CreatePosts: migrating ======================================
+-- create_table(:posts)
+   -> 0.0233s
+== 20240213192903 CreatePosts: migrated (0.0234s) =============================
+
+== 20240213224006 DeviseCreateUsers: migrating ================================
+-- create_table(:users)
+   -> 0.0221s
+-- add_index(:users, :email, {:unique=>true})
+   -> 0.0072s
+-- add_index(:users, :reset_password_token, {:unique=>true})
+   -> 0.0062s
+== 20240213224006 DeviseCreateUsers: migrated (0.0358s) =======================
+
+== 20240217225013 CreateDeviseApiTables: migrating ============================
+-- create_table(:devise_api_tokens, {:id=>:primary_key})
+   -> 0.0431s
+== 20240217225013 CreateDeviseApiTables: migrated (0.0432s) ===================
+
