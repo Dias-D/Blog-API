@@ -9,6 +9,7 @@ RSpec.describe "Posts", type: :request do
         
         it "INDEX 200 OK" do
             get "/v1/posts.json"
+
             expect(response).to have_http_status(200)
             expect(response.body).to include_json([
                 "id" => /\d/,
@@ -21,13 +22,15 @@ RSpec.describe "Posts", type: :request do
     describe "Testing V1 Request/Controllers with Authentication" do
         before do 
             @post = create(:post)
-            user = create(:user)            
-            sign_in user
+            user = create(:user) 
+
+            post "/users/tokens/sign_in", params: { email: user.email, password: user.password }
+            @auth = JSON.parse response.body
         end
 
         it "CREATE 201 Created" do
             
-            headers = {"ACCPET" => "application/json"}
+            headers = {"ACCPET" => "application/json", "AUTHORIZATION" => "Bearer #{@auth["token"]}"}
 
             post_params = attributes_for(:post)
       
@@ -42,7 +45,7 @@ RSpec.describe "Posts", type: :request do
         end
 
         it "SHOW 201 OK" do
-            get "/v1/posts/#{@post.id}.json"
+            get "/v1/posts/#{@post.id}.json", headers: {"AUTHORIZATION" => "Bearer #{@auth["token"]}"}
       
             expect(response).to have_http_status(200)
             expect(response.body).to include_json(
@@ -53,7 +56,7 @@ RSpec.describe "Posts", type: :request do
         end
 
         it "UPDATE 200 Updated" do      
-            headers = {"ACCPET" => "application/json"}      
+            headers = {"ACCPET" => "application/json", "AUTHORIZATION" => "Bearer #{@auth["token"]}"}
             @post.title += " - UPDATE"
       
             patch "/v1/posts/#{@post.id}.json",  params: {post: @post.attributes}, headers: headers
@@ -67,7 +70,7 @@ RSpec.describe "Posts", type: :request do
         end
 
         it "DELETE 204 No Content" do
-            headers = {"ACCPET" => "application/json"}
+            headers = {"ACCPET" => "application/json", "AUTHORIZATION" => "Bearer #{@auth["token"]}"}
       
             expect {delete "/v1/posts/#{@post.id}.json",  headers: headers}.to change(Post, :count).by(-1)      
             expect(response).to have_http_status(204)
