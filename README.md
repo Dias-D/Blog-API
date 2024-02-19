@@ -9,3 +9,9 @@ This is a small API made in Ruby on Rails, ​​with post management per user a
 * Docker
 
 ## How to install
+* Clone this project and move to this folder:
+````
+https://github.com/Dias-D/Blog.git blog
+cd blog/
+````
+*
