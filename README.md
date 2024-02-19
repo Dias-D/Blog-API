@@ -1,24 +1,11 @@
-# README
+# BLOG
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a small API made in Ruby on Rails, ​​with post management per user as well as the possibility of authentication
 
-Things you may want to cover:
+## System settings: 
+* Ruby: 3.0
+* Rails: 7.0.8
+* Postgres: 14.2
+* Docker
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## How to install
