@@ -8,6 +8,16 @@ This is a small API made in Ruby on Rails, ​​with post management per user a
 * Postgres: 14.2
 * Docker
 
+### Additional Settings
+* Active Model Serializers
+* Rspec Json Expectations
+* Devise
+* Devise Api
+* Factory Bot
+* Rspec Rails
+* Shoulda Matchers
+* Ffaker
+
 ## How to install
 * Clone this project and enter to this folder:
 ```
