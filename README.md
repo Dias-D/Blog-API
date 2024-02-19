@@ -9,9 +9,20 @@ This is a small API made in Ruby on Rails, ​​with post management per user a
 * Docker
 
 ## How to install
-* Clone this project and move to this folder:
-````
+* Clone this project and enter to this folder:
+```
 https://github.com/Dias-D/Blog.git blog
 cd blog/
-````
-*
+```
+* Container inicialization
+```
+docker compose up
+```
+* Open another terminal and use the command below, this will access the application terminal
+```
+docker exec -it blog-myapp-web-1 /bin/bash
+```
+* The following commands are to prepare the application database
+```
+rails db:create db:migrate db:seed
+```
