@@ -1,43 +1,54 @@
 class V1::PostsController < ApplicationController
+    skip_before_action :verify_authenticity_token, raise: false  
+
+    before_action :authenticate_devise_api_token!, except: [:index]
+    before_action :set_post, only: %i[ show update destroy ]
+    
     # GET /v1/posts
     def index
-        posts = Post.all
-        render json: posts
-    end
+        @posts = Post.all
 
-    # POST /v1/posts
-    def create
-        post_params = params.require(:post).permit(:title, :body)
-        post = Post.new(post_params)
-
-        if post.save
-        render json: post, status: :created
-        else
-        render json: post.errors, status: :unprocessable_entity
-        end
+        render json: @posts
     end
 
     # GET /v1/posts/:id
     def show
-        post = Post.find(params[:id])
-        render json: post
+        render json: @post
+    end
+
+    # POST /v1/posts
+    def create
+        @post = Post.new(post_params)
+
+        if @post.save
+        render json: @post, status: :created
+        else
+        render json: @post.errors, status: :unprocessable_entity
+        end
     end
 
     # PATCH/PUT /v1/posts/:id
     def update
-        post = Post.find(params[:id])
-        post_params= params.require(:post).permit(:title, :body)
-
-        if post.update(post_params)
-        render json: post
+        if @post.update(post_params)
+        render json: @post
         else
-        render json: post.errors, status: :unprocessable_entity
+        render json: @post.errors, status: :unprocessable_entity
         end
     end
 
     # DELETE /v1/posts/:id
     def destroy
-        post = Post.find(params[:id])
-        post.destroy
+        @post.destroy
     end
+
+    private
+        # Use callbacks to share common setup or constraints between actions.
+        def set_post
+        @post = Post.find(params[:id])
+        end
+
+        # Only allow a list of trusted parameters through.
+        def post_params
+        params.require(:post).permit(:title, :body)
+        end
 end
