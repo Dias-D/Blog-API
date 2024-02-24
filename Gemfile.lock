@@ -249,8 +249,8 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   bootsnap
   debug
-  devise (~> 4.9)
-  devise-api (~> 0.1.3)
+  devise
+  devise-api
   factory_bot_rails
   ffaker
   pg (~> 1.1)
