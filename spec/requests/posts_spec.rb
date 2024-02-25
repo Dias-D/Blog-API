@@ -27,9 +27,9 @@ RSpec.describe "Posts", type: :request do
     describe "Testing V1 Request/Controllers with Authentication" do
         before do 
             @post = create(:post)            
-            user = create(:user)
+            @user = create(:user)
 
-            post "/users/tokens/sign_in", params: { "email" => user.email, "password" => user.password }, headers: { "content" => "application/json" }
+            post "/users/tokens/sign_in", params: { "email" => @user.email, "password" => @user.password }, headers: { "content" => "application/json" }
             auth = JSON.parse response.body
 
             @headers = {"ACCPET" => "application/json", "AUTHORIZATION" => "Bearer #{auth["token"]}"}
@@ -37,8 +37,8 @@ RSpec.describe "Posts", type: :request do
 
         it "CREATE 201 Created" do
             post_params = attributes_for(:post)
-            puts 'aaaaaaaaaaa', post_params
-      
+            post_params["user_id"] = @user.id
+
             post "/v1/posts.json", params: {post: post_params}, headers: @headers
       
             expect(response).to have_http_status(201)
