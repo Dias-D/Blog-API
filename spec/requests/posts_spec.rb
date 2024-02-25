@@ -4,7 +4,7 @@ require "rspec/json_expectations"
 RSpec.describe "Posts", type: :request do
     describe "Testing V1 Request/Controllers without Authentication" do
         before do 
-            @post = create(:post)
+            post = create(:post)
         end
         
         it "INDEX 200 OK" do
@@ -14,7 +14,12 @@ RSpec.describe "Posts", type: :request do
             expect(response.body).to include_json([
                 "id" => /\d/,
                 "title" => (be_a_kind_of String),
-                "body" => (be_a_kind_of String)
+                "body" => (be_a_kind_of String),
+                "user" => {
+                    "id" => /\d/,
+                    "name" => (be_a_kind_of String),
+                    "email" => (be_a_kind_of String)
+                }
             ])
         end
     end
@@ -32,6 +37,7 @@ RSpec.describe "Posts", type: :request do
 
         it "CREATE 201 Created" do
             post_params = attributes_for(:post)
+            puts 'aaaaaaaaaaa', post_params
       
             post "/v1/posts.json", params: {post: post_params}, headers: @headers
       
@@ -39,7 +45,12 @@ RSpec.describe "Posts", type: :request do
             expect(response.body).to include_json(
                 "id" => /\d/,
                 "title" => (be_a_kind_of String),
-                "body" => (be_a_kind_of String)
+                "body" => (be_a_kind_of String),
+                "user" => {
+                    "id" => /\d/,
+                    "name" => (be_a_kind_of String),
+                    "email" => (be_a_kind_of String)
+                }
             )
         end
 
@@ -50,7 +61,12 @@ RSpec.describe "Posts", type: :request do
             expect(response.body).to include_json(
                 "id" => /\d/,
                 "title" => (be_a_kind_of String),
-                "body" => (be_a_kind_of String)
+                "body" => (be_a_kind_of String),
+                "user" => {
+                    "id" => /\d/,
+                    "name" => (be_a_kind_of String),
+                    "email" => (be_a_kind_of String)
+                }
             )
         end
 
@@ -64,7 +80,12 @@ RSpec.describe "Posts", type: :request do
             expect(response.body).to include_json(
                 "id" => /\d/,
                 "title" => (be_a_kind_of String),
-                "body" => (be_a_kind_of String)
+                "body" => (be_a_kind_of String),
+                "user" => {
+                    "id" => /\d/,
+                    "name" => (be_a_kind_of String),
+                    "email" => (be_a_kind_of String)
+                }
             )
         end
 
