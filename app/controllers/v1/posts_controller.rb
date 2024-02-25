@@ -16,6 +16,13 @@ class V1::PostsController < ApplicationController
         render json: @post
     end
 
+    # GET /v1/posts/user_id
+    def byUser
+        posts  = Post.where(user_id: params[:user_id]).order(created_at: :desc)
+
+        render json: posts
+    end
+
     # POST /v1/posts
     def create
         @post = Post.new(post_params)
