@@ -29,7 +29,7 @@ RSpec.describe "Posts", type: :request do
             @post = create(:post)            
             @user = create(:user)
 
-            post "/users/tokens/sign_in", params: { "email" => @user.email, "password" => @user.password }, headers: { "content" => "application/json" }
+            post "/v1/users/tokens/sign_in", params: { "email" => @user.email, "password" => @user.password }, headers: { "content" => "application/json" }
             auth = JSON.parse response.body
 
             @headers = {"ACCPET" => "application/json", "AUTHORIZATION" => "Bearer #{auth["token"]}"}
