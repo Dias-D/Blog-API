@@ -36,3 +36,8 @@ docker exec -it blog-myapp-web-1 /bin/bash
 ```
 rails db:create db:migrate db:seed
 ```
+
+## Front-end Example Project
+```
+https://github.com/Dias-D/Blog-NuxtJS.git
+```
